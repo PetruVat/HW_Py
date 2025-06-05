@@ -1,0 +1,6 @@
+Flask>=3.0
+Flask-SQLAlchemy>=3.1
+Flask-Migrate>=4.0
+SQLAlchemy>=2.0
+pydantic>=2.7
+python-dotenv>=1.0
