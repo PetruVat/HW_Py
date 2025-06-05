@@ -5,7 +5,11 @@ class Category(db.Model):
     __tablename__ = "categories"
 
     id: Mapped[int] = mapped_column(db.Integer, primary_key=True, autoincrement=True)
-    name: Mapped[str] = mapped_column(db.String(60), nullable=False, unique=True)
+    name: Mapped[str] = mapped_column(
+        db.String(60),
+        nullable=False,
+        unique=True
+    )
 
     questions: Mapped["Question"] = relationship("Question", back_populates="category")
 

@@ -7,4 +7,4 @@ class CategoryDTO(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 class CategoryCreateDTO(BaseModel):
-    name: str = Field(..., min_length=2, max_length=60)
+    name: str = Field(..., min_length=1, max_length=60)
