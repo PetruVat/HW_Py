@@ -1,11 +1,11 @@
-from typing import List
+from typing import List, Optional
 from database import db
 from entities.question_model import Question
 from services.category_service import get_category
 from serializers.question_schema import QuestionCreateDTO
 
 def list_questions() -> List[Question]:
-    return Question.query.all()
+    return Question.query.options(db.joinedload(Question.category)).all()
 
 def create_question(raw_data: dict) -> Question:
     dto = QuestionCreateDTO.model_validate(raw_data)

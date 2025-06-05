@@ -5,7 +5,7 @@ from services.question_service import (
     get_question,
     update_question,
 )
-from serializers.question_schema import QuestionDTO
+from serializers.question_schema import QuestionDTO, QuestionCreateDTO
 
 question_bp = Blueprint("questions", __name__)
 
@@ -13,10 +13,15 @@ question_bp = Blueprint("questions", __name__)
 def questions_collection():
     if request.method == "GET":
         qs = list_questions()
-        return jsonify([QuestionDTO.model_validate(q).model_dump() for q in qs])
+        return jsonify([
+            QuestionDTO.model_validate(q).model_dump()
+            for q in qs
+        ])
 
     if request.method == "POST":
-        created = create_question(request.json or {})
+        raw = request.json or {}
+        dto = QuestionCreateDTO.model_validate(raw)
+        created = create_question(dto.model_dump())
         return jsonify(QuestionDTO.model_validate(created).model_dump()), 201
 
 @question_bp.route("/<int:question_id>", methods=["GET", "PUT"])
